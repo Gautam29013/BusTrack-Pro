@@ -203,6 +203,19 @@ class BusSimulator {
     // Smart ETA calculation
     const eta_minutes = calculateETA(state, pos);
 
+    // Twilio Alerts Hook (Mock)
+    if (global.activeAlerts && global.activeAlerts.length > 0 && typeof eta_minutes === 'number') {
+      const remainingAlerts = [];
+      for (const alert of global.activeAlerts) {
+        if (alert.busId === busId && eta_minutes <= alert.threshold) {
+          logger.info(`[TWILIO MOCK] 📱 SMS Sent to ${alert.phoneNumber}: "BusTrackPro: Bus ${state.number} is arriving at ${alert.stopName} in ${eta_minutes} mins!"`);
+        } else {
+          remainingAlerts.push(alert);
+        }
+      }
+      global.activeAlerts = remainingAlerts;
+    }
+
     // Route deviation detection
     // Occasionally introduce a simulated deviation for demo purposes (5% chance)
     const simulateDeviation = Math.random() < 0.05;

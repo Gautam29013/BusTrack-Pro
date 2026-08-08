@@ -24,6 +24,8 @@ const userRoutes = require('./src/routes/users');
 const analyticsRoutes = require('./src/routes/analytics');
 const routeRoutes = require('./src/routes/routes');
 const adminRoutes = require('./src/routes/admin');
+const alertsRoutes = require('./src/routes/alerts');
+const paymentsRoutes = require('./src/routes/payments');
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -62,6 +64,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/routes', routeRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/alerts', alertsRoutes);
+app.use('/api/payments', paymentsRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
