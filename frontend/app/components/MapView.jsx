@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
 // Leaflet must be loaded client-side only
@@ -36,6 +36,44 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
     : null;
 
   const mapRef = useRef(null);
+  const [hasCentered, setHasCentered] = useState(false);
+  const [routePath, setRoutePath] = useState(null);
+
+  // Fetch actual road route from OSRM between user and bus
+  useEffect(() => {
+    if (userLocation && selectedBus) {
+      const fetchRoute = async () => {
+        try {
+          const start = `${userLocation.lng},${userLocation.lat}`;
+          const end = `${selectedBus.lng || selectedBus.longitude},${selectedBus.lat || selectedBus.latitude}`;
+          const res = await fetch(`https://router.project-osrm.org/route/v1/driving/${start};${end}?overview=full&geometries=geojson`);
+          const data = await res.json();
+          
+          if (data && data.routes && data.routes.length > 0) {
+            // OSRM returns coordinates as [lng, lat], Leaflet needs [lat, lng]
+            const coords = data.routes[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
+            setRoutePath(coords);
+          } else {
+            setRoutePath(null);
+          }
+        } catch (err) {
+          console.error('Failed to fetch route:', err);
+          setRoutePath(null);
+        }
+      };
+      fetchRoute();
+    } else {
+      setRoutePath(null);
+    }
+  }, [userLocation, selectedBus]);
+
+  useEffect(() => {
+    // Auto-center on user location on first load with animation
+    if (userLocation && mapRef.current && !hasCentered) {
+      mapRef.current.flyTo([userLocation.lat, userLocation.lng], 16, { animate: true, duration: 1.5 });
+      setHasCentered(true);
+    }
+  }, [userLocation, hasCentered]);
 
   const handleLocateMe = () => {
     if (mapRef.current && userLocation) {
@@ -91,14 +129,14 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
         {/* Distance Polyline between User and Selected Bus */}
         {userLocation && selectedBus && (
           <Polyline 
-            positions={[
+            positions={routePath || [
               [userLocation.lat, userLocation.lng], 
               [selectedBus.lat || selectedBus.latitude, selectedBus.lng || selectedBus.longitude]
             ]}
-            pathOptions={{ color: 'var(--accent-emerald)', weight: 3, dashArray: '5, 10' }}
+            pathOptions={{ color: 'var(--accent-blue)', weight: 5, opacity: 0.8 }}
           >
             <Tooltip permanent direction="center" className="distance-tooltip" offset={[0, 0]}>
-              <div style={{ background: 'rgba(16,185,129,0.9)', color: 'white', padding: '4px 8px', borderRadius: '8px', fontWeight: 700, fontSize: '12px', border: '1px solid rgba(255,255,255,0.2)' }}>
+              <div style={{ background: 'var(--accent-blue)', color: 'white', padding: '4px 8px', borderRadius: '8px', fontWeight: 700, fontSize: '12px', border: '1px solid rgba(255,255,255,0.3)', boxShadow: '0 2px 8px rgba(37,99,235,0.3)' }}>
                 {distanceToBus < 1 ? `${Math.round(distanceToBus * 1000)} m` : `${distanceToBus.toFixed(1)} km`}
               </div>
             </Tooltip>
