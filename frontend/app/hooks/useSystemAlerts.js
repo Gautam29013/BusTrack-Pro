@@ -14,7 +14,7 @@ export function useSystemAlerts() {
     const handleAlert = (alert) => {
       // Use different toast styles based on severity
       const style = {
-        background: alert.severity === 'error' ? 'rgba(244,63,94,0.95)' : 'rgba(13,20,36,0.95)',
+        background: alert.severity === 'error' ? 'rgba(244,63,94,0.95)' : 'var(--bg-glass)',
         color: 'white',
         border: alert.severity === 'error' ? '1px solid #f43f5e' : '1px solid rgba(255,255,255,0.1)',
         backdropFilter: 'blur(16px)',

@@ -48,7 +48,7 @@ export default function ProfilePage() {
             </div>
             <div>
               <h2 style={{ fontWeight: 700, fontSize: '20px', marginBottom: '4px' }}>{user?.name}</h2>
-              <p style={{ color: '#94a3b8', fontSize: '14px' }}>{user?.email}</p>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>{user?.email}</p>
               <span className={`badge ${user?.role === 'admin' ? 'badge-amber' : 'badge-blue'}`} style={{ marginTop: '6px' }}>{user?.role || 'user'}</span>
             </div>
           </div>
@@ -56,7 +56,7 @@ export default function ProfilePage() {
           {isEditing ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '6px' }}>Full Name</label>
+                <label style={{ display: 'block', fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '6px' }}>Full Name</label>
                 <input
                   id="profile-name-input"
                   className="input-field"
@@ -82,15 +82,15 @@ export default function ProfilePage() {
         <div className="glass-card" style={{ padding: '24px', marginBottom: '16px' }}>
           <h3 style={{ fontWeight: 600, fontSize: '15px', marginBottom: '16px', fontFamily: 'Space Grotesk, sans-serif' }}>⭐ Favorite Routes</h3>
           {favorites.length === 0 ? (
-            <p style={{ color: '#475569', fontSize: '14px', textAlign: 'center', padding: '16px 0' }}>No favorite routes yet. Track buses to add favorites.</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '14px', textAlign: 'center', padding: '16px 0' }}>No favorite routes yet. Track buses to add favorites.</p>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {favorites.map(route => (
                 <div key={route.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 12px', borderRadius: '8px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: route.color || '#3b82f6', flexShrink: 0 }} />
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: route.color || 'var(--accent-blue)', flexShrink: 0 }} />
                   <div>
                     <div style={{ fontWeight: 600, fontSize: '14px' }}>{route.name}</div>
-                    <div style={{ fontSize: '12px', color: '#94a3b8' }}>Route #{route.number}</div>
+                    <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Route #{route.number}</div>
                   </div>
                 </div>
               ))}
@@ -108,7 +108,7 @@ export default function ProfilePage() {
               id="logout-profile-btn"
               className="btn-secondary"
               onClick={async () => { await logout(); window.location.href = '/'; }}
-              style={{ color: '#f43f5e', borderColor: 'rgba(244,63,94,0.25)' }}
+              style={{ color: 'var(--accent-rose)', borderColor: 'rgba(244,63,94,0.25)' }}
             >
               Sign out
             </button>

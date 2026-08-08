@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const CROWD_CONFIG = {
   empty: {
     label: 'Empty',
-    color: '#10b981',
+    color: 'var(--accent-emerald)',
     bg: 'rgba(16,185,129,0.12)',
     border: 'rgba(16,185,129,0.3)',
     icon: '🟢',
@@ -20,7 +20,7 @@ const CROWD_CONFIG = {
   },
   full: {
     label: 'Full',
-    color: '#f43f5e',
+    color: 'var(--accent-rose)',
     bg: 'rgba(244,63,94,0.12)',
     border: 'rgba(244,63,94,0.3)',
     icon: '🔴',
@@ -28,7 +28,7 @@ const CROWD_CONFIG = {
   },
   unknown: {
     label: 'Unknown',
-    color: '#475569',
+    color: 'var(--text-muted)',
     bg: 'rgba(71,85,105,0.12)',
     border: 'rgba(71,85,105,0.3)',
     icon: '⚪',
@@ -69,7 +69,7 @@ export default function CrowdBadge({ level = 'unknown', variant = 'badge', passe
     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-          <span style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 500 }}>Crowd Level</span>
+          <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: 500 }}>Crowd Level</span>
           <span style={{ fontSize: '11px', fontWeight: 700, color: cfg.color }}>
             {cfg.label}{passengerCount !== undefined ? ` · ${passengerCount} pax` : ''}
           </span>

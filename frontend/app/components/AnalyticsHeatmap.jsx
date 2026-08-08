@@ -19,9 +19,9 @@ export default function AnalyticsHeatmap({ heatmapData = [] }) {
   // Amber = moderate congestion (35-75)
   // Green = low congestion (<35)
   const getCongestionColor = (volume) => {
-    if (volume >= 75) return '#f43f5e';
+    if (volume >= 75) return 'var(--accent-rose)';
     if (volume >= 35) return '#f59e0b';
-    return '#10b981';
+    return 'var(--accent-emerald)';
   };
 
   return (
@@ -75,19 +75,19 @@ export default function AnalyticsHeatmap({ heatmapData = [] }) {
         position: 'absolute',
         bottom: '12px',
         right: '12px',
-        background: 'rgba(13,20,36,0.9)',
+        background: 'var(--bg-glass)',
         border: '1px solid rgba(255,255,255,0.1)',
         borderRadius: '8px',
         padding: '8px 12px',
         backdropFilter: 'blur(12px)',
         fontSize: '11px',
-        color: '#94a3b8',
+        color: 'var(--text-secondary)',
         zIndex: 500,
         display: 'flex',
         flexDirection: 'column',
         gap: '6px',
       }}>
-        <div style={{ fontWeight: 600, color: '#f1f5f9', marginBottom: '2px' }}>Stop Congestion</div>
+        <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '2px' }}>Stop Congestion</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'rgba(244,63,94,0.6)', border: '1px solid #f43f5e' }} />
           <span>Heavy (&gt;75%)</span>

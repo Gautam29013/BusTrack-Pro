@@ -35,15 +35,15 @@ export default function RootLayout({ children }) {
           position="top-right"
           toastOptions={{
             style: {
-              background: 'rgba(13, 20, 36, 0.95)',
-              color: '#f1f5f9',
+              background: 'var(--bg-glass)',
+              color: 'var(--text-primary)',
               border: '1px solid rgba(255,255,255,0.1)',
               backdropFilter: 'blur(16px)',
               fontFamily: 'Inter, sans-serif',
               fontSize: '14px',
             },
-            success: { iconTheme: { primary: '#10b981', secondary: '#0d1424' } },
-            error: { iconTheme: { primary: '#f43f5e', secondary: '#0d1424' } },
+            success: { iconTheme: { primary: 'var(--accent-emerald)', secondary: 'var(--bg-secondary)' } },
+            error: { iconTheme: { primary: 'var(--accent-rose)', secondary: 'var(--bg-secondary)' } },
           }}
         />
       </body>

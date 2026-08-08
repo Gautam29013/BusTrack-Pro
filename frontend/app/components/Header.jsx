@@ -33,8 +33,8 @@ export default function Header() {
   return (
     <header style={{
       height: '60px',
-      background: 'rgba(13,20,36,0.95)',
-      borderBottom: '1px solid rgba(255,255,255,0.07)',
+      background: 'var(--bg-glass)',
+      borderBottom: '1px solid var(--border)',
       backdropFilter: 'blur(16px)',
       display: 'flex',
       alignItems: 'center',
@@ -49,7 +49,7 @@ export default function Header() {
       <button
         id="sidebar-toggle"
         onClick={toggleSidebar}
-        style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px', borderRadius: '6px', display: 'flex', alignItems: 'center' }}
+        style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '4px', borderRadius: '6px', display: 'flex', alignItems: 'center' }}
         aria-label="Toggle sidebar"
       >
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -60,21 +60,21 @@ export default function Header() {
       {/* Logo */}
       <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
         <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>🚌</div>
-        <span style={{ fontWeight: 700, fontSize: '16px', color: '#f1f5f9', fontFamily: 'Space Grotesk, sans-serif' }}>BusTrackPro</span>
+        <span style={{ fontWeight: 700, fontSize: '16px', color: 'var(--text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>BusTrackPro</span>
       </Link>
 
       <div style={{ flex: 1, display: 'flex', gap: '20px', marginLeft: '32px' }}>
-        <Link href="/analytics" style={{ textDecoration: 'none', color: '#94a3b8', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#f1f5f9'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>
+        <Link href="/analytics" style={{ textDecoration: 'none', color: 'var(--text-secondary)', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--text-primary)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}>
           {t('analytics')} 📊
         </Link>
-        <Link href="/admin" style={{ textDecoration: 'none', color: '#94a3b8', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#f1f5f9'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>
-          Admin Dashboard 🛠️
+        <Link href="/admin" style={{ textDecoration: 'none', color: 'var(--text-secondary)', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--text-primary)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}>
+          {t('admin_dashboard')} 🛠️
         </Link>
-        <Link href="/driver" style={{ textDecoration: 'none', color: '#94a3b8', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#f1f5f9'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>
-          Driver Portal 🚍
+        <Link href="/driver" style={{ textDecoration: 'none', color: 'var(--text-secondary)', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--text-primary)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}>
+          {t('driver_portal')} 🚍
         </Link>
-        <Link href="/tickets" style={{ textDecoration: 'none', color: '#94a3b8', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#f1f5f9'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>
-          Tickets 🎟️
+        <Link href="/tickets" style={{ textDecoration: 'none', color: 'var(--text-secondary)', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--text-primary)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}>
+          {t('tickets')} 🎟️
         </Link>
       </div>
 
@@ -82,7 +82,7 @@ export default function Header() {
         <select 
           value={lang} 
           onChange={(e) => setLang(e.target.value)}
-          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#94a3b8', borderRadius: '6px', padding: '4px 8px', fontSize: '12px', outline: 'none' }}
+          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-secondary)', borderRadius: '6px', padding: '4px 8px', fontSize: '12px', outline: 'none' }}
         >
           <option value="en">EN</option>
           <option value="es">ES</option>
@@ -91,7 +91,7 @@ export default function Header() {
         <select 
           value={theme} 
           onChange={handleThemeChange}
-          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#94a3b8', borderRadius: '6px', padding: '4px 8px', fontSize: '12px', outline: 'none' }}
+          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-secondary)', borderRadius: '6px', padding: '4px 8px', fontSize: '12px', outline: 'none' }}
         >
           <option value="dark">🌙 Dark</option>
           <option value="light">☀️ Light</option>
@@ -100,8 +100,8 @@ export default function Header() {
       </div>
 
       {/* Connection status */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: isConnected ? '#10b981' : '#94a3b8' }}>
-        <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: isConnected ? '#10b981' : '#475569', boxShadow: isConnected ? '0 0 8px #10b981' : 'none' }} />
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: isConnected ? 'var(--accent-emerald)' : 'var(--text-secondary)' }}>
+        <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: isConnected ? 'var(--accent-emerald)' : 'var(--text-muted)', boxShadow: isConnected ? '0 0 8px #10b981' : 'none' }} />
         {isConnected ? 'Live' : 'Connecting…'}
       </div>
 
@@ -112,7 +112,7 @@ export default function Header() {
             <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: 'white', fontWeight: 700 }}>
               {user?.name?.[0]?.toUpperCase() || 'U'}
             </div>
-            <span style={{ fontSize: '13px', color: '#f1f5f9', fontWeight: 500 }}>{user?.name?.split(' ')[0]}</span>
+            <span style={{ fontSize: '13px', color: 'var(--text-primary)', fontWeight: 500 }}>{user?.name?.split(' ')[0]}</span>
           </Link>
           <button id="logout-btn" onClick={handleLogout} className="btn-secondary" style={{ padding: '6px 14px', fontSize: '13px' }}>Sign out</button>
         </div>

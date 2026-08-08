@@ -73,7 +73,7 @@ export default function NotificationBanner() {
             <div style={{ fontWeight: 700, fontSize: '14px', marginBottom: '3px', fontFamily: 'Space Grotesk, sans-serif' }}>
               {status === 'granted' ? '✅ Notifications enabled!' : 'Get bus arrival alerts'}
             </div>
-            <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
               {status === 'granted'
                 ? "You'll be notified when your bus is 2 min away."
                 : 'We\'ll notify you when your bus is 2 stops away.'}
@@ -84,7 +84,7 @@ export default function NotificationBanner() {
             <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
               <button
                 onClick={handleDismiss}
-                style={{ padding: '7px 12px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#94a3b8', fontSize: '12px', cursor: 'pointer' }}
+                style={{ padding: '7px 12px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'var(--text-secondary)', fontSize: '12px', cursor: 'pointer' }}
               >
                 Later
               </button>
@@ -98,7 +98,7 @@ export default function NotificationBanner() {
           )}
 
           {status === 'asking' && (
-            <div style={{ fontSize: '12px', color: '#94a3b8', flexShrink: 0 }}>Waiting…</div>
+            <div style={{ fontSize: '12px', color: 'var(--text-secondary)', flexShrink: 0 }}>Waiting…</div>
           )}
 
           {status === 'granted' && (

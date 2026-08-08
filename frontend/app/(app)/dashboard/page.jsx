@@ -19,8 +19,8 @@ import api from '../../lib/api';
 const MapView = dynamic(() => import('../../components/MapView'), {
   ssr: false,
   loading: () => (
-    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0d1424', borderRadius: '12px' }}>
-      <div style={{ textAlign: 'center', color: '#475569' }}>
+    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-secondary)', borderRadius: '12px' }}>
+      <div style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
         <div style={{ fontSize: '32px', marginBottom: '12px' }}>🗺️</div>
         <p style={{ fontSize: '14px' }}>Loading map…</p>
       </div>
@@ -35,6 +35,7 @@ export default function DashboardPage() {
   const [showPlanner, setShowPlanner] = useState(false);
   const [showSaved, setShowSaved] = useState(false);
   const sidebarOpen = useUIStore((s) => s.sidebarOpen);
+  const toggleSidebar = useUIStore((s) => s.toggleSidebar);
   const isConnected = useBusStore((s) => s.isConnected);
   const { buses } = useBusTracking();
   const { location: userLocation } = useLocation();
@@ -79,17 +80,17 @@ export default function DashboardPage() {
         style={{
           overflow: 'hidden',
           flexShrink: 0,
-          borderRight: '1px solid rgba(255,255,255,0.07)',
-          background: 'rgba(13,20,36,0.98)',
+          borderRight: '1px solid var(--border)',
+          background: 'var(--bg-glass)',
           display: 'flex',
           flexDirection: 'column',
         }}
       >
         <div style={{ width: 320, height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           {/* Sidebar header */}
-          <div style={{ padding: '16px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div style={{ padding: '16px', borderBottom: '1px solid var(--border)' }}>
             <h2 style={{ fontWeight: 700, fontSize: '15px', fontFamily: 'Space Grotesk, sans-serif', marginBottom: '4px' }}>Active Buses</h2>
-            <p style={{ fontSize: '12px', color: '#475569' }}>
+            <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               {isConnected ? '🟢 Connected · Real-time updates' : '⚪ Connecting…'}
             </p>
           </div>
@@ -107,7 +108,49 @@ export default function DashboardPage() {
       </motion.div>
 
       {/* Map area */}
-      <div style={{ flex: 1, padding: '12px', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ flex: 1, padding: '12px', overflow: 'hidden', position: 'relative', display: 'flex' }}>
+        
+        {/* Sidebar Toggle Rail / Handle */}
+        <button
+          onClick={toggleSidebar}
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '0',
+            transform: 'translateY(-50%)',
+            background: 'transparent',
+            border: 'none',
+            width: '12px',
+            height: '100px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            zIndex: 1000,
+            color: 'transparent',
+            transition: 'all 0.2s',
+          }}
+          onMouseEnter={(e) => { 
+            e.target.style.background = 'var(--bg-glass-hover)'; 
+            e.target.style.color = 'var(--text-primary)'; 
+            e.target.style.width = '24px';
+            e.target.style.border = '1px solid var(--border)';
+            e.target.style.borderLeft = 'none';
+            e.target.style.borderRadius = '0 8px 8px 0';
+            e.target.style.boxShadow = '4px 0 12px rgba(0,0,0,0.1)';
+          }}
+          onMouseLeave={(e) => { 
+            e.target.style.background = 'transparent'; 
+            e.target.style.color = 'transparent';
+            e.target.style.width = '12px';
+            e.target.style.border = 'none';
+            e.target.style.boxShadow = 'none';
+          }}
+          title={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+        >
+          {sidebarOpen ? '◀' : '▶'}
+        </button>
+
         <MapView
           buses={busList}
           stops={stops}
@@ -151,14 +194,14 @@ export default function DashboardPage() {
         <div style={{ position: 'absolute', bottom: '24px', left: '16px', zIndex: 900, display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <button
             onClick={() => { setShowPlanner(!showPlanner); setShowSaved(false); }}
-            style={{ width: '48px', height: '48px', borderRadius: '50%', background: showPlanner ? '#8b5cf6' : 'rgba(13,20,36,0.9)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', transition: 'all 0.2s' }}
+            style={{ width: '48px', height: '48px', borderRadius: '50%', background: showPlanner ? '#8b5cf6' : 'var(--bg-glass)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', transition: 'all 0.2s' }}
             title="Trip Planner"
           >
             🗺️
           </button>
           <button
             onClick={() => { setShowSaved(!showSaved); setShowPlanner(false); }}
-            style={{ width: '48px', height: '48px', borderRadius: '50%', background: showSaved ? '#f59e0b' : 'rgba(13,20,36,0.9)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', transition: 'all 0.2s' }}
+            style={{ width: '48px', height: '48px', borderRadius: '50%', background: showSaved ? '#f59e0b' : 'var(--bg-glass)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', transition: 'all 0.2s' }}
             title="Saved Stops"
           >
             ⭐
@@ -177,11 +220,11 @@ export default function DashboardPage() {
           pointerEvents: 'none',
         }}>
           {[
-            { label: 'Buses Online', value: busList.filter(b => b.speed > 0).length, color: '#10b981' },
-            { label: 'Total Active', value: busList.length, color: '#3b82f6' },
+            { label: 'Buses Online', value: busList.filter(b => b.speed > 0).length, color: 'var(--accent-emerald)' },
+            { label: 'Total Active', value: busList.length, color: 'var(--accent-blue)' },
             { label: 'Avg Speed', value: `${Math.round(busList.reduce((a, b) => a + (b.speed || 0), 0) / (busList.length || 1))} km/h`, color: '#f59e0b' },
-            ...(deviatedCount > 0 ? [{ label: 'Deviated ⚠️', value: deviatedCount, color: '#f43f5e' }] : []),
-            ...(fullBuses > 0 ? [{ label: 'Full 🔴', value: fullBuses, color: '#f43f5e' }] : []),
+            ...(deviatedCount > 0 ? [{ label: 'Deviated ⚠️', value: deviatedCount, color: 'var(--accent-rose)' }] : []),
+            ...(fullBuses > 0 ? [{ label: 'Full 🔴', value: fullBuses, color: 'var(--accent-rose)' }] : []),
           ].map(stat => (
             <div key={stat.label} style={{
               background: 'rgba(13,20,36,0.92)',
@@ -194,7 +237,7 @@ export default function DashboardPage() {
               pointerEvents: 'auto',
             }}>
               <div style={{ fontSize: '16px', fontWeight: 700, color: stat.color }}>{stat.value}</div>
-              <div style={{ fontSize: '10px', color: '#475569', marginTop: '2px' }}>{stat.label}</div>
+              <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginTop: '2px' }}>{stat.label}</div>
             </div>
           ))}
         </div>

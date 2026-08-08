@@ -38,12 +38,12 @@ export default function SavedStopsPanel({ onSelectStop, onClose }) {
             </span>
           )}
         </div>
-        <button onClick={onClose} style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '8px', padding: '5px 7px', cursor: 'pointer', color: '#94a3b8', fontSize: '13px' }}>✕</button>
+        <button onClick={onClose} style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '8px', padding: '5px 7px', cursor: 'pointer', color: 'var(--text-secondary)', fontSize: '13px' }}>✕</button>
       </div>
 
       <div style={{ maxHeight: '260px', overflowY: 'auto', padding: '10px' }}>
         {savedStops.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '24px 0', color: '#475569' }}>
+          <div style={{ textAlign: 'center', padding: '24px 0', color: 'var(--text-muted)' }}>
             <div style={{ fontSize: '28px', marginBottom: '8px' }}>🚏</div>
             <p style={{ fontSize: '12px' }}>No saved stops yet</p>
             <p style={{ fontSize: '11px', color: '#334155', marginTop: '4px' }}>Click ⭐ on any stop to save it</p>
@@ -72,16 +72,16 @@ export default function SavedStopsPanel({ onSelectStop, onClose }) {
                 >
                   <div style={{ fontSize: '18px', flexShrink: 0 }}>🚏</div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontWeight: 600, fontSize: '13px', color: '#f1f5f9', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <div style={{ fontWeight: 600, fontSize: '13px', color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {stop.name}
                     </div>
-                    <div style={{ fontSize: '11px', color: '#475569', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {stop.address || 'Bus Stop'}
                     </div>
                   </div>
                   <button
                     onClick={(e) => { e.stopPropagation(); removeStop(stop.id); }}
-                    style={{ background: 'rgba(244,63,94,0.1)', border: '1px solid rgba(244,63,94,0.2)', borderRadius: '6px', padding: '4px 6px', cursor: 'pointer', color: '#f43f5e', fontSize: '12px', flexShrink: 0 }}
+                    style={{ background: 'rgba(244,63,94,0.1)', border: '1px solid rgba(244,63,94,0.2)', borderRadius: '6px', padding: '4px 6px', cursor: 'pointer', color: 'var(--accent-rose)', fontSize: '12px', flexShrink: 0 }}
                   >
                     ✕
                   </button>
@@ -96,7 +96,7 @@ export default function SavedStopsPanel({ onSelectStop, onClose }) {
         <div style={{ padding: '8px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <button
             onClick={() => useFavoritesStore.getState().clearAll()}
-            style={{ width: '100%', padding: '6px', background: 'none', border: 'none', color: '#475569', fontSize: '11px', cursor: 'pointer' }}
+            style={{ width: '100%', padding: '6px', background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: '11px', cursor: 'pointer' }}
           >
             Clear all saved stops
           </button>

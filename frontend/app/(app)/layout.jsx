@@ -12,7 +12,7 @@ export default function AppLayout({ children }) {
   const sidebarOpen = useUIStore((s) => s.sidebarOpen);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', background: '#0a0f1e' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', background: 'var(--bg-primary)' }}>
       <Header />
       <main style={{ flex: 1, overflow: 'hidden' }}>
         {children}

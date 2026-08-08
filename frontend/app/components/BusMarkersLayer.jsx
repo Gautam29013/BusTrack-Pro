@@ -4,13 +4,13 @@ import { Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const ROUTE_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#f43f5e'];
+const ROUTE_COLORS = ['var(--accent-blue)', 'var(--accent-emerald)', '#f59e0b', '#8b5cf6', '#06b6d4', 'var(--accent-rose)'];
 
 const CROWD_LABELS = {
-  empty: { label: 'Empty 🟢', color: '#10b981' },
+  empty: { label: 'Empty 🟢', color: 'var(--accent-emerald)' },
   moderate: { label: 'Moderate 🟡', color: '#f59e0b' },
-  full: { label: 'Full 🔴', color: '#f43f5e' },
-  unknown: { label: 'Unknown', color: '#475569' },
+  full: { label: 'Full 🔴', color: 'var(--accent-rose)' },
+  unknown: { label: 'Unknown', color: 'var(--text-muted)' },
 };
 
 function getColor(index) {
@@ -26,7 +26,7 @@ function createBusIcon(color, isSelected, isDeviated) {
        </circle>`
     : `<circle cx="20" cy="20" r="18" fill="none" stroke="${color}" stroke-opacity="0.4" stroke-width="${isSelected ? 8 : 6}"/>`;
 
-  const bgColor = isDeviated ? '#f43f5e' : color;
+  const bgColor = isDeviated ? 'var(--accent-rose)' : color;
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 40 40">
       ${pulseRing}
@@ -86,7 +86,7 @@ export default function BusMarkersLayer({ buses, selectedBusId, onBusSelect }) {
                     Bus #{bus.busNumber || bus.number}
                   </div>
                   {isDeviated && (
-                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#f43f5e', background: 'rgba(244,63,94,0.1)', padding: '2px 6px', borderRadius: '99px', border: '1px solid rgba(244,63,94,0.3)' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--accent-rose)', background: 'rgba(244,63,94,0.1)', padding: '2px 6px', borderRadius: '99px', border: '1px solid rgba(244,63,94,0.3)' }}>
                       ⚠️ Off-route
                     </span>
                   )}

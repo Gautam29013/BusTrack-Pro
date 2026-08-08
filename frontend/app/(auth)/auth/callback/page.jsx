@@ -38,7 +38,7 @@ function AuthCallbackContent() {
   }, [token, error, router, setToken, setUser]);
 
   return (
-    <div style={{ textAlign: 'center', color: '#94a3b8', padding: '40px' }}>
+    <div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '40px' }}>
       <div style={{ marginBottom: '16px' }}>
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" style={{ animation: 'spin 1s linear infinite' }}>
           <path d="M21 12a9 9 0 11-6.219-8.56" />
@@ -53,7 +53,7 @@ function AuthCallbackContent() {
 
 export default function AuthCallbackPage() {
   return (
-    <Suspense fallback={<div style={{ textAlign: 'center', color: '#94a3b8', padding: '40px' }}>Loading...</div>}>
+    <Suspense fallback={<div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '40px' }}>Loading...</div>}>
       <AuthCallbackContent />
     </Suspense>
   );

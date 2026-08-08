@@ -35,14 +35,14 @@ export default function LoginPage() {
       <div style={{ textAlign: 'center', marginBottom: '36px' }}>
         <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', margin: '0 auto 16px', boxShadow: '0 8px 30px rgba(59,130,246,0.3)' }}>🚌</div>
         <h1 style={{ fontSize: '28px', fontWeight: 800, fontFamily: 'Space Grotesk, sans-serif', marginBottom: '6px' }}>Welcome back</h1>
-        <p style={{ color: '#94a3b8', fontSize: '14px' }}>Sign in to BusTrackPro</p>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>Sign in to BusTrackPro</p>
       </div>
 
       {/* Card */}
       <div className="glass-card" style={{ padding: '32px' }}>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#94a3b8', marginBottom: '6px' }}>Email</label>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: 'var(--text-secondary)', marginBottom: '6px' }}>Email</label>
             <input
               id="email"
               type="email"
@@ -56,7 +56,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#94a3b8', marginBottom: '6px' }}>Password</label>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: 'var(--text-secondary)', marginBottom: '6px' }}>Password</label>
             <div style={{ position: 'relative' }}>
               <input
                 id="password"
@@ -72,7 +72,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '16px' }}
+                style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '16px' }}
                 aria-label="Toggle password visibility"
               >
                 {showPassword ? '🙈' : '👁️'}
@@ -94,7 +94,7 @@ export default function LoginPage() {
 
         <div style={{ display: 'flex', alignItems: 'center', margin: '24px 0' }}>
           <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.06)' }} />
-          <span style={{ padding: '0 12px', fontSize: '13px', color: '#94a3b8' }}>Or continue with</span>
+          <span style={{ padding: '0 12px', fontSize: '13px', color: 'var(--text-secondary)' }}>Or continue with</span>
           <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.06)' }} />
         </div>
 
@@ -112,14 +112,14 @@ export default function LoginPage() {
         </button>
 
         <div style={{ textAlign: 'center', marginTop: '24px' }}>
-          <p style={{ color: '#94a3b8', fontSize: '14px' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>
             Don't have an account?{' '}
-            <Link href="/signup" style={{ color: '#3b82f6', fontWeight: 600, textDecoration: 'none' }}>Sign up</Link>
+            <Link href="/signup" style={{ color: 'var(--accent-blue)', fontWeight: 600, textDecoration: 'none' }}>Sign up</Link>
           </p>
         </div>
 
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '24px', paddingTop: '20px', textAlign: 'center' }}>
-          <Link href="/dashboard" style={{ color: '#94a3b8', fontSize: '13px', textDecoration: 'none' }}>
+          <Link href="/dashboard" style={{ color: 'var(--text-secondary)', fontSize: '13px', textDecoration: 'none' }}>
             👀 Browse as guest →
           </Link>
         </div>

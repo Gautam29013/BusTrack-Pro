@@ -79,7 +79,7 @@ export default function DriverPortal() {
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '6px' }}>Bus Number (e.g. B999)</label>
+            <label style={{ display: 'block', fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '6px' }}>Bus Number (e.g. B999)</label>
             <input 
               type="text" 
               className="input-field" 
@@ -91,7 +91,7 @@ export default function DriverPortal() {
           </div>
           
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '6px' }}>Select Route</label>
+            <label style={{ display: 'block', fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '6px' }}>Select Route</label>
             <select 
               className="input-field" 
               value={selectedRoute} 
@@ -111,7 +111,7 @@ export default function DriverPortal() {
               marginTop: '8px', 
               padding: '14px', 
               fontSize: '16px', 
-              background: isShiftActive ? '#f43f5e' : '#10b981',
+              background: isShiftActive ? 'var(--accent-rose)' : 'var(--accent-emerald)',
               boxShadow: isShiftActive ? '0 0 20px rgba(244,63,94,0.4)' : '0 0 20px rgba(16,185,129,0.4)'
             }}
             onClick={toggleShift}
@@ -124,17 +124,17 @@ export default function DriverPortal() {
       {isShiftActive && (
         <div className="glass-card" style={{ padding: '24px', border: '1px solid rgba(16,185,129,0.3)', background: 'rgba(16,185,129,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-            <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#10b981' }}>🔴 Live Broadcasting</h3>
+            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--accent-emerald)' }}>🔴 Live Broadcasting</h3>
             <span className="badge badge-green">Active</span>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div style={{ background: 'rgba(0,0,0,0.2)', padding: '12px', borderRadius: '8px' }}>
-              <div style={{ fontSize: '12px', color: '#94a3b8' }}>Speed</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Speed</div>
               <div style={{ fontSize: '20px', fontWeight: 700 }}>{speed.toFixed(0)} <span style={{ fontSize: '12px', color: '#64748b' }}>km/h</span></div>
             </div>
             <div style={{ background: 'rgba(0,0,0,0.2)', padding: '12px', borderRadius: '8px' }}>
-              <div style={{ fontSize: '12px', color: '#94a3b8' }}>Passengers</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Passengers</div>
               <div style={{ fontSize: '20px', fontWeight: 700 }}>~15</div>
             </div>
           </div>

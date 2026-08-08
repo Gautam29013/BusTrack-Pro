@@ -6,16 +6,16 @@ import CrowdBadge from './CrowdBadge';
 import useFavoritesStore from '../store/favoritesStore';
 
 const ROUTE_COLORS = {
-  '#3b82f6': '#3b82f6',
-  '#10b981': '#10b981',
+  'var(--accent-blue)': 'var(--accent-blue)',
+  'var(--accent-emerald)': 'var(--accent-emerald)',
   '#f59e0b': '#f59e0b',
   '#8b5cf6': '#8b5cf6',
   '#06b6d4': '#06b6d4',
-  '#f43f5e': '#f43f5e',
+  'var(--accent-rose)': 'var(--accent-rose)',
 };
 
 function EtaChip({ minutes }) {
-  const color = minutes <= 2 ? '#f43f5e' : minutes <= 5 ? '#f59e0b' : '#10b981';
+  const color = minutes <= 2 ? 'var(--accent-rose)' : minutes <= 5 ? '#f59e0b' : 'var(--accent-emerald)';
   return (
     <div style={{
       minWidth: '52px',
@@ -26,7 +26,7 @@ function EtaChip({ minutes }) {
       border: `1px solid ${color}40`,
     }}>
       <div style={{ fontSize: '18px', fontWeight: 800, color, fontFamily: 'Space Grotesk, sans-serif', lineHeight: 1 }}>{minutes}</div>
-      <div style={{ fontSize: '9px', color: '#94a3b8', marginTop: '2px' }}>min</div>
+      <div style={{ fontSize: '9px', color: 'var(--text-secondary)', marginTop: '2px' }}>min</div>
     </div>
   );
 }
@@ -118,7 +118,7 @@ export default function StopPanel({ stop, onClose }) {
                 <div style={{ fontWeight: 700, fontSize: '14px', fontFamily: 'Space Grotesk, sans-serif' }}>
                   {stop.name}
                 </div>
-                <div style={{ fontSize: '11px', color: '#475569' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
                   {stop.address || 'Bus Stop'}
                 </div>
               </div>
@@ -133,7 +133,7 @@ export default function StopPanel({ stop, onClose }) {
                 borderRadius: '8px',
                 padding: '6px',
                 cursor: 'pointer',
-                color: isSaved ? '#f59e0b' : '#94a3b8',
+                color: isSaved ? '#f59e0b' : 'var(--text-secondary)',
                 fontSize: '14px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center'
               }}
@@ -143,7 +143,7 @@ export default function StopPanel({ stop, onClose }) {
             </button>
             <button onClick={onClose} style={{
               background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '8px',
-              padding: '6px 8px', cursor: 'pointer', color: '#94a3b8', fontSize: '12px',
+              padding: '6px 8px', cursor: 'pointer', color: 'var(--text-secondary)', fontSize: '12px',
             }}>✕</button>
           </div>
         </div>
@@ -151,11 +151,11 @@ export default function StopPanel({ stop, onClose }) {
         {/* Live arrivals list */}
         <div style={{ padding: '12px', maxHeight: '360px', overflowY: 'auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-            <span style={{ fontSize: '11px', color: '#475569', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Live Arrivals
             </span>
             {lastUpdated && (
-              <span style={{ fontSize: '10px', color: '#475569' }}>
+              <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
                 Updated {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
               </span>
             )}
@@ -168,7 +168,7 @@ export default function StopPanel({ stop, onClose }) {
               ))}
             </div>
           ) : arrivals.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '24px 0', color: '#475569' }}>
+            <div style={{ textAlign: 'center', padding: '24px 0', color: 'var(--text-muted)' }}>
               <div style={{ fontSize: '24px', marginBottom: '8px' }}>🚌</div>
               <p style={{ fontSize: '13px' }}>No buses serving this stop</p>
             </div>
@@ -191,14 +191,14 @@ export default function StopPanel({ stop, onClose }) {
                   }}
                 >
                   {/* Route color strip */}
-                  <div style={{ width: '4px', height: '40px', borderRadius: '99px', background: arrival.routeColor || '#3b82f6', flexShrink: 0 }} />
+                  <div style={{ width: '4px', height: '40px', borderRadius: '99px', background: arrival.routeColor || 'var(--accent-blue)', flexShrink: 0 }} />
 
                   {/* Info */}
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontWeight: 700, fontSize: '13px', marginBottom: '3px' }}>
                       Bus #{arrival.busNumber}
                     </div>
-                    <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginBottom: '4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {arrival.routeName}
                     </div>
                     <CrowdBadge level={arrival.crowdLevel} variant="badge" />
@@ -219,7 +219,7 @@ export default function StopPanel({ stop, onClose }) {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-secondary"
-            style={{ flex: 1, textAlign: 'center', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13px', background: 'rgba(59,130,246,0.1)', color: '#3b82f6', borderColor: 'rgba(59,130,246,0.2)' }}
+            style={{ flex: 1, textAlign: 'center', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13px', background: 'rgba(59,130,246,0.1)', color: 'var(--accent-blue)', borderColor: 'rgba(59,130,246,0.2)' }}
           >
             🗺️ Walking Directions
           </a>

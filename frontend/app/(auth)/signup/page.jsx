@@ -9,13 +9,13 @@ import useAuthStore from '../../store/authStore';
 function PasswordStrength({ password }) {
   const score = [/.{8,}/, /[A-Z]/, /[a-z]/, /[0-9]/, /[^A-Za-z0-9]/].filter(r => r.test(password)).length;
   const labels = ['', 'Weak', 'Fair', 'Good', 'Strong', 'Very strong'];
-  const colors = ['', '#ef4444', '#f59e0b', '#3b82f6', '#10b981', '#10b981'];
+  const colors = ['', '#ef4444', '#f59e0b', 'var(--accent-blue)', 'var(--accent-emerald)', 'var(--accent-emerald)'];
   if (!password) return null;
   return (
     <div style={{ marginTop: '8px' }}>
       <div style={{ display: 'flex', gap: '4px', marginBottom: '4px' }}>
         {[1,2,3,4,5].map(i => (
-          <div key={i} style={{ flex: 1, height: '3px', borderRadius: '99px', background: i <= score ? colors[score] : 'rgba(255,255,255,0.1)', transition: 'background 0.3s' }} />
+          <div key={i} style={{ flex: 1, height: '3px', borderRadius: '99px', background: i <= score ? colors[score] : 'var(--border-bright)', transition: 'background 0.3s' }} />
         ))}
       </div>
       <p style={{ fontSize: '11px', color: colors[score] }}>{labels[score]}</p>
@@ -55,21 +55,21 @@ export default function SignupPage() {
       <div style={{ textAlign: 'center', marginBottom: '36px' }}>
         <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: 'linear-gradient(135deg, #10b981, #059669)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', margin: '0 auto 16px', boxShadow: '0 8px 30px rgba(16,185,129,0.3)' }}>🚌</div>
         <h1 style={{ fontSize: '28px', fontWeight: 800, fontFamily: 'Space Grotesk, sans-serif', marginBottom: '6px' }}>Create account</h1>
-        <p style={{ color: '#94a3b8', fontSize: '14px' }}>Join BusTrackPro today</p>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>Join BusTrackPro today</p>
       </div>
 
       <div className="glass-card" style={{ padding: '32px' }}>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#94a3b8', marginBottom: '6px' }}>Full Name</label>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: 'var(--text-secondary)', marginBottom: '6px' }}>Full Name</label>
             <input id="signup-name" type="text" className="input-field" placeholder="John Doe" value={form.name} onChange={set('name')} required autoComplete="name" />
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#94a3b8', marginBottom: '6px' }}>Email</label>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: 'var(--text-secondary)', marginBottom: '6px' }}>Email</label>
             <input id="signup-email" type="email" className="input-field" placeholder="you@example.com" value={form.email} onChange={set('email')} required autoComplete="email" />
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#94a3b8', marginBottom: '6px' }}>Password</label>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: 'var(--text-secondary)', marginBottom: '6px' }}>Password</label>
             <input id="signup-password" type="password" className="input-field" placeholder="Min. 8 characters" value={form.password} onChange={set('password')} required autoComplete="new-password" />
             <PasswordStrength password={form.password} />
           </div>
@@ -81,7 +81,7 @@ export default function SignupPage() {
 
         <div style={{ display: 'flex', alignItems: 'center', margin: '24px 0' }}>
           <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.06)' }} />
-          <span style={{ padding: '0 12px', fontSize: '13px', color: '#94a3b8' }}>Or continue with</span>
+          <span style={{ padding: '0 12px', fontSize: '13px', color: 'var(--text-secondary)' }}>Or continue with</span>
           <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.06)' }} />
         </div>
 
@@ -99,9 +99,9 @@ export default function SignupPage() {
         </button>
 
         <div style={{ textAlign: 'center', marginTop: '24px' }}>
-          <p style={{ color: '#94a3b8', fontSize: '14px' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>
             Already have an account?{' '}
-            <Link href="/login" style={{ color: '#10b981', fontWeight: 600, textDecoration: 'none' }}>Sign in</Link>
+            <Link href="/login" style={{ color: 'var(--accent-emerald)', fontWeight: 600, textDecoration: 'none' }}>Sign in</Link>
           </p>
         </div>
       </div>

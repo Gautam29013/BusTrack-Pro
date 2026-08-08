@@ -24,7 +24,7 @@ export default function AnalyticsPage() {
 
   if (loading) {
     return (
-      <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8' }}>
+      <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: '32px', animation: 'spin 1s linear infinite', marginBottom: '16px' }}>⏳</div>
           <div>Loading Analytics...</div>
@@ -35,7 +35,7 @@ export default function AnalyticsPage() {
 
   if (!data) {
     return (
-      <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#f43f5e' }}>
+      <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-rose)' }}>
         Failed to load analytics data.
       </div>
     );
@@ -49,7 +49,7 @@ export default function AnalyticsPage() {
           <h1 style={{ fontSize: '28px', fontWeight: 800, fontFamily: 'Space Grotesk, sans-serif', marginBottom: '8px' }}>
             System Analytics
           </h1>
-          <p style={{ color: '#94a3b8', fontSize: '15px' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '15px' }}>
             Real-time insights and historical performance metrics.
           </p>
         </div>
@@ -71,9 +71,9 @@ export default function AnalyticsPage() {
               style={{ padding: '20px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}
             >
               <div>
-                <div style={{ fontSize: '13px', color: '#94a3b8', marginBottom: '8px' }}>{stat.label}</div>
+                <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '8px' }}>{stat.label}</div>
                 <div style={{ fontSize: '28px', fontWeight: 800, fontFamily: 'Space Grotesk, sans-serif' }}>{stat.value}</div>
-                <div style={{ fontSize: '12px', marginTop: '8px', color: stat.good ? '#10b981' : '#f43f5e', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ fontSize: '12px', marginTop: '8px', color: stat.good ? 'var(--accent-emerald)' : 'var(--accent-rose)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   {stat.trend.startsWith('+') ? '↑' : stat.trend.startsWith('-') ? '↓' : '→'} {stat.trend.replace(/[+-]/, '')} from last week
                 </div>
               </div>
@@ -94,7 +94,7 @@ export default function AnalyticsPage() {
           >
             <div style={{ marginBottom: '20px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: 700 }}>Punctuality Dashboard</h3>
-              <p style={{ fontSize: '13px', color: '#94a3b8' }}>On-time performance across routes (Last 7 Days)</p>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>On-time performance across routes (Last 7 Days)</p>
             </div>
             <PunctualityChart data={data.punctuality} routes={data.routes} />
           </motion.div>
@@ -109,7 +109,7 @@ export default function AnalyticsPage() {
           >
             <div style={{ marginBottom: '20px' }}>
               <h3 style={{ fontSize: '16px', fontWeight: 700 }}>Ridership Stats</h3>
-              <p style={{ fontSize: '13px', color: '#94a3b8' }}>Passenger volume (Peak Hours)</p>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>Passenger volume (Peak Hours)</p>
             </div>
             <RidershipChart data={data.ridership} routes={data.routes} />
           </motion.div>
@@ -125,7 +125,7 @@ export default function AnalyticsPage() {
         >
           <div style={{ marginBottom: '20px', flexShrink: 0 }}>
             <h3 style={{ fontSize: '16px', fontWeight: 700 }}>Congestion Heatmap</h3>
-            <p style={{ fontSize: '13px', color: '#94a3b8' }}>Live passenger density at stops</p>
+            <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>Live passenger density at stops</p>
           </div>
           <div style={{ flex: 1, borderRadius: '12px', overflow: 'hidden' }}>
             <AnalyticsHeatmap heatmapData={data.heatmap} />

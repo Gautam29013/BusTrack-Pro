@@ -99,10 +99,10 @@ export default function AdminDashboard() {
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-                <th style={{ padding: '12px 8px', color: '#94a3b8' }}>Number</th>
-                <th style={{ padding: '12px 8px', color: '#94a3b8' }}>Name</th>
-                <th style={{ padding: '12px 8px', color: '#94a3b8' }}>Color</th>
-                <th style={{ padding: '12px 8px', color: '#94a3b8', textAlign: 'right' }}>Actions</th>
+                <th style={{ padding: '12px 8px', color: 'var(--text-secondary)' }}>Number</th>
+                <th style={{ padding: '12px 8px', color: 'var(--text-secondary)' }}>Name</th>
+                <th style={{ padding: '12px 8px', color: 'var(--text-secondary)' }}>Color</th>
+                <th style={{ padding: '12px 8px', color: 'var(--text-secondary)', textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -112,13 +112,13 @@ export default function AdminDashboard() {
                   <td style={{ padding: '12px 8px' }}>{route.name}</td>
                   <td style={{ padding: '12px 8px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div style={{ width: 16, height: 16, borderRadius: '50%', background: route.color || '#3b82f6' }} />
+                      <div style={{ width: 16, height: 16, borderRadius: '50%', background: route.color || 'var(--accent-blue)' }} />
                       {route.color}
                     </div>
                   </td>
                   <td style={{ padding: '12px 8px', textAlign: 'right' }}>
                     <button className="btn-secondary" style={{ padding: '4px 8px', fontSize: '12px', marginRight: '8px' }}>Edit</button>
-                    <button className="btn-secondary" style={{ padding: '4px 8px', fontSize: '12px', color: '#f43f5e', borderColor: 'rgba(244,63,94,0.3)' }} onClick={() => handleDeleteRoute(route.id)}>Delete</button>
+                    <button className="btn-secondary" style={{ padding: '4px 8px', fontSize: '12px', color: 'var(--accent-rose)', borderColor: 'rgba(244,63,94,0.3)' }} onClick={() => handleDeleteRoute(route.id)}>Delete</button>
                   </td>
                 </tr>
               ))}

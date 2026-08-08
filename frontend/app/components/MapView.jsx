@@ -64,7 +64,7 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
             <Circle
               center={[userLocation.lat, userLocation.lng]}
               radius={userLocation.accuracy || 50}
-              pathOptions={{ color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.15, weight: 1 }}
+              pathOptions={{ color: 'var(--accent-blue)', fillColor: 'var(--accent-blue)', fillOpacity: 0.15, weight: 1 }}
             />
             <CircleMarker
               center={[userLocation.lat, userLocation.lng]}
@@ -95,7 +95,7 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
               [userLocation.lat, userLocation.lng], 
               [selectedBus.lat || selectedBus.latitude, selectedBus.lng || selectedBus.longitude]
             ]}
-            pathOptions={{ color: '#10b981', weight: 3, dashArray: '5, 10' }}
+            pathOptions={{ color: 'var(--accent-emerald)', weight: 3, dashArray: '5, 10' }}
           >
             <Tooltip permanent direction="center" className="distance-tooltip" offset={[0, 0]}>
               <div style={{ background: 'rgba(16,185,129,0.9)', color: 'white', padding: '4px 8px', borderRadius: '8px', fontWeight: 700, fontSize: '12px', border: '1px solid rgba(255,255,255,0.2)' }}>
@@ -111,24 +111,24 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
         position: 'absolute',
         bottom: '16px',
         right: '16px',
-        background: 'rgba(13,20,36,0.9)',
-        border: '1px solid rgba(255,255,255,0.1)',
+        background: 'var(--bg-glass)',
+        border: '1px solid var(--border-bright)',
         borderRadius: '10px',
         padding: '10px 14px',
         backdropFilter: 'blur(12px)',
         fontSize: '12px',
-        color: '#94a3b8',
+        color: 'var(--text-secondary)',
         zIndex: 500,
         display: 'flex',
         flexDirection: 'column',
         gap: '6px',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981' }} />
+          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--accent-emerald)' }} />
           <span>On route</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#f43f5e' }} />
+          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--accent-rose)' }} />
           <span>Deviated ⚠️</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -136,7 +136,7 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
           <span>Bus stop</span>
         </div>
         {buses.length > 0 && (
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '4px', paddingTop: '6px', fontWeight: 600, color: '#f1f5f9' }}>
+          <div style={{ borderTop: '1px solid var(--border)', marginTop: '4px', paddingTop: '6px', fontWeight: 600, color: 'var(--text-primary)' }}>
             {buses.length} active
           </div>
         )}
@@ -150,8 +150,8 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
             position: 'absolute',
             bottom: '140px', // placed above the legend
             right: '16px',
-            background: 'rgba(13,20,36,0.9)',
-            border: '1px solid rgba(255,255,255,0.1)',
+            background: 'var(--bg-glass)',
+            border: '1px solid var(--border)',
             borderRadius: '50%',
             width: '44px',
             height: '44px',
@@ -162,11 +162,11 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
             zIndex: 500,
             boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
             backdropFilter: 'blur(12px)',
-            color: '#3b82f6',
+            color: 'var(--accent-blue)',
             transition: 'background 0.2s',
           }}
-          onMouseEnter={(e) => e.target.style.background = 'rgba(13,20,36,1)'}
-          onMouseLeave={(e) => e.target.style.background = 'rgba(13,20,36,0.9)'}
+          onMouseEnter={(e) => e.target.style.background = 'var(--bg-glass-hover)'}
+          onMouseLeave={(e) => e.target.style.background = 'var(--bg-glass)'}
           title="Go to my location"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

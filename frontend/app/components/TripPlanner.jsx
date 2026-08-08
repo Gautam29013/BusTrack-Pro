@@ -3,7 +3,7 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../lib/api';
 
-const ROUTE_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4'];
+const ROUTE_COLORS = ['var(--accent-blue)', 'var(--accent-emerald)', '#f59e0b', '#8b5cf6', '#06b6d4'];
 
 /**
  * Haversine distance between two lat/lng points in km
@@ -110,7 +110,7 @@ function planTrip(fromStop, toStop, stops, buses) {
   return results.slice(0, 3); // Top 3 options
 }
 
-const CROWD_COLOR = { empty: '#10b981', moderate: '#f59e0b', full: '#f43f5e', unknown: '#475569' };
+const CROWD_COLOR = { empty: 'var(--accent-emerald)', moderate: '#f59e0b', full: 'var(--accent-rose)', unknown: 'var(--text-muted)' };
 
 function StopSelector({ label, value, onChange, stops, placeholder }) {
   const [query, setQuery] = useState('');
@@ -123,7 +123,7 @@ function StopSelector({ label, value, onChange, stops, placeholder }) {
 
   return (
     <div style={{ position: 'relative' }}>
-      <label style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '6px' }}>
+      <label style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '6px' }}>
         {label}
       </label>
       <div
@@ -135,7 +135,7 @@ function StopSelector({ label, value, onChange, stops, placeholder }) {
           borderRadius: '10px',
           cursor: 'pointer',
           fontSize: '14px',
-          color: value ? '#f1f5f9' : '#475569',
+          color: value ? 'var(--text-primary)' : 'var(--text-muted)',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
@@ -181,7 +181,7 @@ function StopSelector({ label, value, onChange, stops, placeholder }) {
                     background: 'rgba(255,255,255,0.06)',
                     border: '1px solid rgba(255,255,255,0.1)',
                     borderRadius: '8px',
-                    color: '#f1f5f9',
+                    color: 'var(--text-primary)',
                     fontSize: '13px',
                     outline: 'none',
                   }}
@@ -206,13 +206,13 @@ function StopSelector({ label, value, onChange, stops, placeholder }) {
                   >
                     <span>🚏</span>
                     <div>
-                      <div style={{ fontWeight: 600, color: '#f1f5f9' }}>{stop.name}</div>
-                      <div style={{ fontSize: '11px', color: '#475569' }}>{stop.address}</div>
+                      <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{stop.name}</div>
+                      <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{stop.address}</div>
                     </div>
                   </div>
                 ))}
                 {filtered.length === 0 && (
-                  <div style={{ padding: '16px', textAlign: 'center', color: '#475569', fontSize: '13px' }}>No stops found</div>
+                  <div style={{ padding: '16px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '13px' }}>No stops found</div>
                 )}
               </div>
             </motion.div>
@@ -225,7 +225,7 @@ function StopSelector({ label, value, onChange, stops, placeholder }) {
 
 function TripCard({ trip, idx }) {
   const totalMin = trip.totalMinutes;
-  const colors = ['#3b82f6', '#10b981', '#f59e0b'];
+  const colors = ['var(--accent-blue)', 'var(--accent-emerald)', '#f59e0b'];
 
   return (
     <motion.div
@@ -244,7 +244,7 @@ function TripCard({ trip, idx }) {
       {idx === 0 && (
         <div style={{
           position: 'absolute', top: '8px', right: '8px',
-          fontSize: '10px', fontWeight: 700, color: '#3b82f6',
+          fontSize: '10px', fontWeight: 700, color: 'var(--accent-blue)',
           background: 'rgba(59,130,246,0.12)', padding: '2px 8px',
           borderRadius: '99px', border: '1px solid rgba(59,130,246,0.2)',
         }}>
@@ -254,7 +254,7 @@ function TripCard({ trip, idx }) {
 
       {/* Total time */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-        <div style={{ fontSize: '22px', fontWeight: 800, color: colors[idx] || '#f1f5f9', fontFamily: 'Space Grotesk, sans-serif' }}>
+        <div style={{ fontSize: '22px', fontWeight: 800, color: colors[idx] || 'var(--text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
           {totalMin} min
         </div>
         <div style={{ height: '1px', flex: 1, background: 'rgba(255,255,255,0.06)' }} />
@@ -279,7 +279,7 @@ function TripCard({ trip, idx }) {
                   <div style={{ fontWeight: 600, fontSize: '13px', color: leg.routeColor }}>
                     Bus #{leg.busNumber} · {leg.routeName}
                   </div>
-                  <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>
+                  <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
                     {leg.from} → {leg.to} · {leg.duration} min
                   </div>
                   <div style={{ fontSize: '11px', color: CROWD_COLOR[leg.crowdLevel], marginTop: '2px' }}>
@@ -288,8 +288,8 @@ function TripCard({ trip, idx }) {
                 </>
               ) : (
                 <>
-                  <div style={{ fontWeight: 500, fontSize: '13px', color: '#94a3b8' }}>{leg.label}</div>
-                  <div style={{ fontSize: '11px', color: '#475569', marginTop: '2px' }}>{leg.duration} min</div>
+                  <div style={{ fontWeight: 500, fontSize: '13px', color: 'var(--text-secondary)' }}>{leg.label}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>{leg.duration} min</div>
                 </>
               )}
             </div>
@@ -348,10 +348,10 @@ export default function TripPlanner({ stops = [], buses = [], onClose }) {
           <div style={{ width: '32px', height: '32px', borderRadius: '10px', background: 'linear-gradient(135deg, #8b5cf6, #6d28d9)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>🗺️</div>
           <div>
             <div style={{ fontWeight: 700, fontSize: '15px', fontFamily: 'Space Grotesk, sans-serif' }}>Trip Planner</div>
-            <div style={{ fontSize: '11px', color: '#475569' }}>Find the best route</div>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Find the best route</div>
           </div>
         </div>
-        <button onClick={onClose} style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '8px', padding: '6px 8px', cursor: 'pointer', color: '#94a3b8', fontSize: '14px' }}>✕</button>
+        <button onClick={onClose} style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '8px', padding: '6px 8px', cursor: 'pointer', color: 'var(--text-secondary)', fontSize: '14px' }}>✕</button>
       </div>
 
       <div style={{ padding: '16px', overflowY: 'auto', flex: 1 }}>
@@ -384,7 +384,7 @@ export default function TripPlanner({ stops = [], buses = [], onClose }) {
               : 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
             border: 'none',
             borderRadius: '10px',
-            color: !fromStop || !toStop ? '#475569' : 'white',
+            color: !fromStop || !toStop ? 'var(--text-muted)' : 'white',
             fontWeight: 700,
             fontSize: '14px',
             cursor: !fromStop || !toStop || fromStop.id === toStop?.id ? 'not-allowed' : 'pointer',
@@ -399,7 +399,7 @@ export default function TripPlanner({ stops = [], buses = [], onClose }) {
         <AnimatePresence>
           {planned && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <div style={{ fontSize: '11px', color: '#475569', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
                 {results.length} route{results.length !== 1 ? 's' : ''} found
               </div>
               {results.map((trip, idx) => (

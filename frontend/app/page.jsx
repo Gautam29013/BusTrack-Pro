@@ -48,15 +48,15 @@ export default function LandingPage() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{ textAlign: 'center', marginBottom: '64px' }}
         >
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '99px', background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.25)', marginBottom: '24px', fontSize: '13px', color: '#3b82f6', fontWeight: '500' }}>
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block', animation: 'pulse 2s infinite' }} />
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '99px', background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.25)', marginBottom: '24px', fontSize: '13px', color: 'var(--accent-blue)', fontWeight: '500' }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-emerald)', display: 'inline-block', animation: 'pulse 2s infinite' }} />
             Live tracking enabled
           </div>
           <h1 style={{ fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 800, lineHeight: 1.1, fontFamily: 'Space Grotesk, sans-serif', marginBottom: '20px' }}>
             Track Every Bus.{' '}
             <span className="gradient-text">In Real Time.</span>
           </h1>
-          <p style={{ fontSize: '18px', color: '#94a3b8', maxWidth: '560px', margin: '0 auto 36px', lineHeight: 1.7 }}>
+          <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '560px', margin: '0 auto 36px', lineHeight: 1.7 }}>
             Live GPS updates, smart ETA predictions, and smooth map animations — all in one place.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -82,8 +82,8 @@ export default function LandingPage() {
             <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
             {/* Bus markers demo */}
             {[
-              { top: '30%', left: '25%', color: '#3b82f6', num: 'B101', delay: 0 },
-              { top: '55%', left: '50%', color: '#10b981', num: 'B202', delay: 0.5 },
+              { top: '30%', left: '25%', color: 'var(--accent-blue)', num: 'B101', delay: 0 },
+              { top: '55%', left: '50%', color: 'var(--accent-emerald)', num: 'B202', delay: 0.5 },
               { top: '25%', left: '65%', color: '#f59e0b', num: 'B303', delay: 1 },
               { top: '65%', left: '35%', color: '#8b5cf6', num: 'B404', delay: 1.5 },
               { top: '45%', left: '75%', color: '#06b6d4', num: 'B505', delay: 0.8 },
@@ -98,7 +98,7 @@ export default function LandingPage() {
                 <div style={{ position: 'relative' }}>
                   <div style={{ position: 'absolute', inset: '-6px', borderRadius: '50%', background: bus.color, opacity: 0.2, animation: 'pulseRing 2s infinite' }} />
                   <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: bus.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', boxShadow: `0 4px 20px ${bus.color}60` }}>🚌</div>
-                  <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', marginTop: '4px', background: 'rgba(13,20,36,0.9)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '6px', padding: '2px 8px', fontSize: '11px', fontWeight: 600, whiteSpace: 'nowrap', color: '#f1f5f9' }}>{bus.num}</div>
+                  <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', marginTop: '4px', background: 'var(--bg-glass)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '6px', padding: '2px 8px', fontSize: '11px', fontWeight: 600, whiteSpace: 'nowrap', color: 'var(--text-primary)' }}>{bus.num}</div>
                 </div>
               </motion.div>
             ))}
@@ -120,14 +120,14 @@ export default function LandingPage() {
             <motion.div key={f.title} variants={itemVariants} className="glass-card" style={{ padding: '28px 24px' }}>
               <div style={{ fontSize: '32px', marginBottom: '14px' }}>{f.icon}</div>
               <h3 style={{ fontWeight: 700, fontSize: '16px', marginBottom: '8px', fontFamily: 'Space Grotesk, sans-serif' }}>{f.title}</h3>
-              <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: 1.6 }}>{f.desc}</p>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6 }}>{f.desc}</p>
             </motion.div>
           ))}
         </motion.div>
       </div>
 
       {/* Footer */}
-      <footer style={{ position: 'relative', zIndex: 10, borderTop: '1px solid rgba(255,255,255,0.06)', padding: '24px', textAlign: 'center', color: '#475569', fontSize: '13px' }}>
+      <footer style={{ position: 'relative', zIndex: 10, borderTop: '1px solid rgba(255,255,255,0.06)', padding: '24px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '13px' }}>
         © {new Date().getFullYear()} BusTrackPro — Real-Time Bus Tracking System
       </footer>
     </div>

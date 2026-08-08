@@ -12,6 +12,8 @@
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
   --text-muted: #475569;
+  --bg-glass: rgba(13, 20, 36, 0.95);
+  --bg-glass-hover: rgba(13, 20, 36, 1);
   --accent-blue: #3b82f6;
   --accent-blue-glow: rgba(59, 130, 246, 0.3);
   --accent-emerald: #10b981;
@@ -32,6 +34,8 @@
   --text-primary: #0f172a;
   --text-secondary: #475569;
   --text-muted: #94a3b8;
+  --bg-glass: rgba(255, 255, 255, 0.95);
+  --bg-glass-hover: rgba(255, 255, 255, 1);
   --accent-blue: #2563eb;
   --accent-blue-glow: rgba(37, 99, 235, 0.2);
   --accent-emerald: #059669;
@@ -50,6 +54,8 @@
   --text-primary: #ffffff;
   --text-secondary: #eeeeee;
   --text-muted: #cccccc;
+  --bg-glass: #000000;
+  --bg-glass-hover: #111111;
   --accent-blue: #3b82f6; /* Bright colors for contrast */
   --accent-blue-glow: transparent;
   --accent-emerald: #10b981;
@@ -82,10 +88,10 @@ body {
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--border); border-radius: 4px; border-left: 1px solid var(--border-bright); }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; border: 2px solid var(--bg-primary); }
+::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
 
 /* ── Glass Card ─────────────────────────────────────────────────────── */
 .glass-card {
