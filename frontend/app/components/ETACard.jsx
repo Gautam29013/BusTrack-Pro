@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CrowdBadge from './CrowdBadge';
 import useAuthStore from '../store/authStore';
@@ -68,6 +69,10 @@ function DeviationAlert({ deviationKm }) {
 
 export default function ETACard({ bus, selectedStop, onClose }) {
   const { user, isAuthenticated } = useAuthStore();
+  const [showSmsInput, setShowSmsInput] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [isAlerting, setIsAlerting] = useState(false);
+
   if (!bus) {
     return (
       <div className="glass-card" style={{ padding: '20px', textAlign: 'center', color: '#475569' }}>
@@ -179,6 +184,59 @@ export default function ETACard({ bus, selectedStop, onClose }) {
           Track & Log Journey
         </button>
       )}
+
+      {/* SMS Alert Section */}
+      <div style={{ marginTop: '12px' }}>
+        {!showSmsInput ? (
+          <button
+            onClick={() => setShowSmsInput(true)}
+            style={{ width: '100%', padding: '10px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '8px', color: '#10b981', fontWeight: 600, fontSize: '13px', cursor: 'pointer', transition: 'background 0.2s' }}
+            onMouseEnter={(e) => e.target.style.background = 'rgba(16,185,129,0.2)'}
+            onMouseLeave={(e) => e.target.style.background = 'rgba(16,185,129,0.1)'}
+          >
+            🔔 Alert me via SMS
+          </button>
+        ) : (
+          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} style={{ background: 'rgba(255,255,255,0.03)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '8px' }}>Enter phone number for ETA alert:</div>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <input
+                type="tel"
+                placeholder="+1 234 567 8900"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                className="input-field"
+                style={{ flex: 1, padding: '8px', fontSize: '13px' }}
+              />
+              <button
+                disabled={isAlerting}
+                onClick={async () => {
+                  if (!phoneNumber) return toast.error('Enter a valid number');
+                  setIsAlerting(true);
+                  try {
+                    await api.post('/alerts/subscribe', {
+                      phoneNumber,
+                      busId: bus.id,
+                      stopName: selectedStop?.name || 'your stop',
+                      threshold: 5
+                    });
+                    toast.success('SMS Alert Set!');
+                    setShowSmsInput(false);
+                  } catch (e) {
+                    toast.error('Failed to set alert');
+                  } finally {
+                    setIsAlerting(false);
+                  }
+                }}
+                className="btn-primary"
+                style={{ padding: '8px 12px', fontSize: '13px' }}
+              >
+                {isAlerting ? '...' : 'Set'}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </div>
     </motion.div>
   );
 }

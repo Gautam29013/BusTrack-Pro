@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import('react-leaflet').then(m => m.TileLayer), { ssr: false });
 const Circle = dynamic(() => import('react-leaflet').then(m => m.Circle), { ssr: false });
+const CircleMarker = dynamic(() => import('react-leaflet').then(m => m.CircleMarker), { ssr: false });
 
 // Dynamic layers
 const BusMarkersLayer = dynamic(() => import('./BusMarkersLayer'), { ssr: false });
@@ -30,11 +31,18 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
 
         {/* User location */}
         {userLocation && (
-          <Circle
-            center={[userLocation.lat, userLocation.lng]}
-            radius={userLocation.accuracy || 50}
-            pathOptions={{ color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.15, weight: 2 }}
-          />
+          <>
+            <Circle
+              center={[userLocation.lat, userLocation.lng]}
+              radius={userLocation.accuracy || 50}
+              pathOptions={{ color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.15, weight: 1 }}
+            />
+            <CircleMarker
+              center={[userLocation.lat, userLocation.lng]}
+              radius={6}
+              pathOptions={{ color: '#ffffff', fillColor: '#2563eb', fillOpacity: 1, weight: 2 }}
+            />
+          </>
         )}
 
         {/* Stop markers — rendered below buses */}

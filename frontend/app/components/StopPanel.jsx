@@ -212,6 +212,19 @@ export default function StopPanel({ stop, onClose }) {
           )}
         </div>
 
+        {/* Actions / Integrations */}
+        <div style={{ padding: '12px 16px', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', gap: '8px' }}>
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&destination=${stop.lat},${stop.lng}&travelmode=walking`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-secondary"
+            style={{ flex: 1, textAlign: 'center', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13px', background: 'rgba(59,130,246,0.1)', color: '#3b82f6', borderColor: 'rgba(59,130,246,0.2)' }}
+          >
+            🗺️ Walking Directions
+          </a>
+        </div>
+
         {/* Refresh hint */}
         <div style={{ padding: '8px 16px', borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
           <span style={{ fontSize: '10px', color: '#334155' }}>🔄 Auto-refreshes every 15 seconds</span>

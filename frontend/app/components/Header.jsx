@@ -73,6 +73,9 @@ export default function Header() {
         <Link href="/driver" style={{ textDecoration: 'none', color: '#94a3b8', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#f1f5f9'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>
           Driver Portal 🚍
         </Link>
+        <Link href="/tickets" style={{ textDecoration: 'none', color: '#94a3b8', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#f1f5f9'} onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>
+          Tickets 🎟️
+        </Link>
       </div>
 
       <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginRight: '16px' }}>
