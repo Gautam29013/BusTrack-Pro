@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import useThemeStore from './store/useThemeStore';
 
 const FEATURES = [
   { icon: '📍', title: 'Live GPS Tracking', desc: 'See every bus location update in real-time on an interactive map.' },
@@ -20,8 +21,16 @@ const itemVariants = {
 };
 
 export default function LandingPage() {
+  const { theme, setTheme } = useThemeStore();
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
+
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #0a0f1e 0%, #0d1424 50%, #0a0f1e 100%)' }}>
+    <div className="min-h-screen" style={{ background: 'var(--bg-primary)', transition: 'background 0.3s ease' }}>
       {/* Ambient blobs */}
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', overflow: 'hidden', zIndex: 0 }}>
         <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%)', filter: 'blur(40px)' }} />
@@ -34,7 +43,27 @@ export default function LandingPage() {
           <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>🚌</div>
           <span style={{ fontWeight: 700, fontSize: '18px', fontFamily: 'Space Grotesk, sans-serif' }}>BusTrackPro</span>
         </div>
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <button 
+            onClick={toggleTheme}
+            style={{ 
+              background: 'var(--bg-card)', 
+              border: '1px solid var(--border)', 
+              color: 'var(--text-secondary)', 
+              borderRadius: '50%', 
+              width: '36px', 
+              height: '36px', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              fontSize: '16px'
+            }}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
           <Link href="/login" className="btn-secondary" style={{ padding: '8px 20px', fontSize: '14px' }}>Sign in</Link>
           <Link href="/signup" className="btn-primary" style={{ padding: '8px 20px', fontSize: '14px' }}>Get Started</Link>
         </div>
@@ -77,7 +106,7 @@ export default function LandingPage() {
           className="glass-card glow-blue"
           style={{ padding: '2px', borderRadius: '20px', marginBottom: '80px', overflow: 'hidden' }}
         >
-          <div style={{ height: '360px', borderRadius: '18px', background: 'linear-gradient(135deg, rgba(13,20,36,0.9) 0%, rgba(10,15,30,0.95) 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ height: '360px', borderRadius: '18px', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
             {/* Fake map grid lines */}
             <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
             {/* Bus markers demo */}

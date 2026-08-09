@@ -24,8 +24,8 @@ export default function Header() {
   }
 
   // Update theme dynamically
-  const handleThemeChange = (e) => {
-    const newTheme = e.target.value;
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
   };
@@ -88,15 +88,26 @@ export default function Header() {
           <option value="es">ES</option>
           <option value="hi">HI</option>
         </select>
-        <select 
-          value={theme} 
-          onChange={handleThemeChange}
-          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-secondary)', borderRadius: '6px', padding: '4px 8px', fontSize: '12px', outline: 'none' }}
+        <button 
+          onClick={toggleTheme}
+          style={{ 
+            background: 'var(--bg-card)', 
+            border: '1px solid var(--border)', 
+            color: 'var(--text-secondary)', 
+            borderRadius: '50%', 
+            width: '32px', 
+            height: '32px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            fontSize: '14px'
+          }}
+          aria-label="Toggle theme"
         >
-          <option value="dark">🌙 Dark</option>
-          <option value="light">☀️ Light</option>
-          <option value="high-contrast">👁️ Contrast</option>
-        </select>
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
       </div>
 
       {/* Connection status */}
