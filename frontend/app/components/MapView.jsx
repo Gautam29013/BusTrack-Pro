@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import useThemeStore from '../store/useThemeStore';
 
 // Leaflet must be loaded client-side only
 const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
@@ -27,6 +28,11 @@ const BusMarkersLayer = dynamic(() => import('./BusMarkersLayer'), { ssr: false 
 const StopMarkersLayer = dynamic(() => import('./StopMarkersLayer'), { ssr: false });
 
 export default function MapView({ buses = [], stops = [], selectedBusId, onBusSelect, onStopSelect, selectedStopId, userLocation }) {
+  const theme = useThemeStore((s) => s.theme);
+  const tileUrl = theme === 'light' 
+    ? "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+    : "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
+
   const DEFAULT_CENTER = [28.6139, 77.2090]; // Delhi
   const DEFAULT_ZOOM = 13;
 
@@ -81,6 +87,29 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
     }
   };
 
+  let nearestBus = null;
+  let minBusDist = Infinity;
+  let nearestStop = null;
+  let minStopDist = Infinity;
+
+  if (userLocation) {
+    buses.forEach(b => {
+      const d = getDistance(userLocation, { lat: b.lat || b.latitude, lng: b.lng || b.longitude });
+      if (d < minBusDist) {
+        minBusDist = d;
+        nearestBus = b;
+      }
+    });
+
+    stops.forEach(s => {
+      const d = getDistance(userLocation, { lat: s.latitude || s.lat, lng: s.longitude || s.lng });
+      if (d < minStopDist) {
+        minStopDist = d;
+        nearestStop = s;
+      }
+    });
+  }
+
   return (
     <div style={{ width: '100%', height: '100%', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
       <MapContainer
@@ -92,8 +121,8 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
         attributionControl={false}
       >
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='© OpenStreetMap'
+          url={tileUrl}
+          attribution='&copy; CARTO'
         />
 
         {/* User location */}
@@ -104,6 +133,12 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
               radius={userLocation.accuracy || 50}
               pathOptions={{ color: 'var(--accent-blue)', fillColor: 'var(--accent-blue)', fillOpacity: 0.15, weight: 1 }}
             />
+            {/* 2km Radius indicating nearby area */}
+            <Circle
+              center={[userLocation.lat, userLocation.lng]}
+              radius={2000}
+              pathOptions={{ color: 'var(--accent-emerald)', fillOpacity: 0.03, weight: 1, dashArray: '5, 5' }}
+            />
             <CircleMarker
               center={[userLocation.lat, userLocation.lng]}
               radius={6}
@@ -111,6 +146,25 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
             />
           </>
         )}
+
+        {/* Nearest Bus Connection */}
+        {userLocation && nearestBus && !selectedBusId && (
+          <Polyline 
+            positions={[
+              [userLocation.lat, userLocation.lng], 
+              [nearestBus.lat || nearestBus.latitude, nearestBus.lng || nearestBus.longitude]
+            ]}
+            pathOptions={{ color: 'var(--accent-emerald)', weight: 2, opacity: 0.7, dashArray: '5, 8' }}
+          >
+            <Tooltip permanent direction="center" className="distance-tooltip" offset={[0, 0]}>
+              <div style={{ background: 'var(--accent-emerald)', color: 'white', padding: '2px 6px', borderRadius: '6px', fontWeight: 600, fontSize: '11px', border: '1px solid rgba(255,255,255,0.3)', boxShadow: '0 2px 8px rgba(16,185,129,0.3)' }}>
+                Nearest Bus: {minBusDist < 1 ? `${Math.round(minBusDist * 1000)}m` : `${minBusDist.toFixed(1)}km`}
+              </div>
+            </Tooltip>
+          </Polyline>
+        )}
+
+
 
         {/* Stop markers — rendered below buses */}
         <StopMarkersLayer

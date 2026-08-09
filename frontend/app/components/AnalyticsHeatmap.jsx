@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
+import useThemeStore from '../store/useThemeStore';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -11,6 +12,11 @@ const CircleMarker = dynamic(() => import('react-leaflet').then(m => m.CircleMar
 const Tooltip = dynamic(() => import('react-leaflet').then(m => m.Tooltip), { ssr: false });
 
 export default function AnalyticsHeatmap({ heatmapData = [] }) {
+  const theme = useThemeStore((s) => s.theme);
+  const tileUrl = theme === 'light' 
+    ? "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+    : "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
+
   const DEFAULT_CENTER = [28.6139, 77.2090]; // Delhi
   const DEFAULT_ZOOM = 12;
 
@@ -35,7 +41,7 @@ export default function AnalyticsHeatmap({ heatmapData = [] }) {
         scrollWheelZoom={false}
       >
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          url={tileUrl}
           attribution='&copy; CARTO'
         />
 
