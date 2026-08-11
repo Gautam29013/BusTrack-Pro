@@ -9,7 +9,7 @@ import api from '../lib/api';
 function ETADisplay({ minutes }) {
   const isNear = minutes <= 2;
   const isVeryNear = minutes <= 1;
-  const color = isVeryNear ? 'var(--accent-rose)' : isNear ? '#f59e0b' : 'var(--accent-blue)';
+  const color = isVeryNear ? '#f43f5e' : isNear ? '#f59e0b' : '#3b82f6';
 
   return (
     <motion.div

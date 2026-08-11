@@ -111,8 +111,8 @@ export default function LandingPage() {
             <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
             {/* Bus markers demo */}
             {[
-              { top: '30%', left: '25%', color: 'var(--accent-blue)', num: 'B101', delay: 0 },
-              { top: '55%', left: '50%', color: 'var(--accent-emerald)', num: 'B202', delay: 0.5 },
+              { top: '30%', left: '25%', color: '#3b82f6', num: 'B101', delay: 0 },
+              { top: '55%', left: '50%', color: '#10b981', num: 'B202', delay: 0.5 },
               { top: '25%', left: '65%', color: '#f59e0b', num: 'B303', delay: 1 },
               { top: '65%', left: '35%', color: '#8b5cf6', num: 'B404', delay: 1.5 },
               { top: '45%', left: '75%', color: '#06b6d4', num: 'B505', delay: 0.8 },

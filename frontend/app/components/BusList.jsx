@@ -15,7 +15,7 @@ const itemVariants = {
   exit: { opacity: 0, x: 20, transition: { duration: 0.2 } },
 };
 
-const ROUTE_COLORS = ['var(--accent-blue)', 'var(--accent-emerald)', '#f59e0b', '#8b5cf6', '#06b6d4', 'var(--accent-rose)'];
+const ROUTE_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#f43f5e'];
 
 function getAge(date) {
   if (!date) return 'No data';
