@@ -30,7 +30,7 @@ async function updateRoute(req, res, next) {
     const { id } = req.params;
     const { name, number, description, color } = req.body;
     const result = await query(
-      'UPDATE routes SET name = $1, number = $2, description = $3, color = $4, updated_at = NOW() WHERE id = $5 RETURNING *',
+      'UPDATE routes SET name = $1, number = $2, description = $3, color = $4 WHERE id = $5 RETURNING *',
       [name, number, description, color, id]
     );
     if (result.rowCount === 0) return res.status(404).json({ success: false, message: 'Route not found' });

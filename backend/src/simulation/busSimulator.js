@@ -253,20 +253,81 @@ class BusSimulator {
     }
   }
 
+  async syncDynamicRoutes() {
+    try {
+      const routes = await query("SELECT * FROM routes WHERE is_active = true");
+      for (const route of routes.rows) {
+        // Check if we already have a bus for this routeId
+        const hasBus = Object.values(this.busStates).some(b => b.routeId === route.id);
+        if (!hasBus) {
+          // Spawn a new mock bus
+          const busId = 'bus-sim-dyn-' + route.id;
+          const busNumber = 'B-' + route.number;
+          
+          // Generate 5 random waypoints around Delhi center
+          const waypoints = [];
+          const centerLat = 28.6139;
+          const centerLng = 77.2090;
+          for (let i = 0; i < 5; i++) {
+            waypoints.push({
+              lat: centerLat + (Math.random() - 0.5) * 0.1,
+              lng: centerLng + (Math.random() - 0.5) * 0.1
+            });
+          }
+          
+          ROUTE_WAYPOINTS[route.id] = waypoints; // Store waypoints dynamically
+
+          // Register in DB
+          await query(
+            `INSERT INTO buses (id, number, route_id, status, is_active)
+             VALUES ($1, $2, $3, 'on_route', true)
+             ON CONFLICT (number) DO NOTHING`,
+             [busId, busNumber, route.id]
+          );
+
+          // Add to simulator state
+          this.busStates[busId] = {
+            id: busId,
+            number: busNumber,
+            routeId: route.id,
+            routeKey: route.id, // Use route.id as the key for ROUTE_WAYPOINTS
+            waypointIndex: 0,
+            progress: 0,
+            speed: 20 + Math.random() * 20,
+            passengerCount: Math.floor(Math.random() * 40)
+          };
+          logger.info(`🚌 Spawned dynamic simulated bus ${busNumber} for new route ${route.number}`);
+        }
+      }
+    } catch (err) {
+      logger.error('Dynamic route sync error:', err.message);
+    }
+  }
+
   async start() {
     await this._ensureBusesInDB();
+    await this.syncDynamicRoutes(); // Initial sync
 
     this.interval = setInterval(() => {
       Object.keys(this.busStates).forEach((busId) => this._broadcast(busId));
     }, this.updateMs);
+    
+    // Check for new routes every 10 seconds
+    this.syncInterval = setInterval(() => {
+      this.syncDynamicRoutes();
+    }, 10000);
 
-    logger.info(`🚌 Simulator broadcasting ${MOCK_BUSES.length} buses every ${this.updateMs}ms`);
+    logger.info(`🚌 Simulator broadcasting buses every ${this.updateMs}ms`);
   }
 
   stop() {
     if (this.interval) {
       clearInterval(this.interval);
       this.interval = null;
+    }
+    if (this.syncInterval) {
+      clearInterval(this.syncInterval);
+      this.syncInterval = null;
     }
   }
 }

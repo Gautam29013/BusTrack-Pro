@@ -12,6 +12,16 @@ export default function AdminDashboard() {
   const [alertSeverity, setAlertSeverity] = useState('info');
   const [isBroadcasting, setIsBroadcasting] = useState(false);
 
+  // Add Route state
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [newRouteData, setNewRouteData] = useState({ number: '', name: '', description: '', color: '#3b82f6' });
+  const [isAddingRoute, setIsAddingRoute] = useState(false);
+
+  // Edit Route state
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editRouteData, setEditRouteData] = useState({ id: '', number: '', name: '', description: '', color: '#3b82f6' });
+  const [isEditingRoute, setIsEditingRoute] = useState(false);
+
   useEffect(() => {
     fetchRoutes();
   }, []);
@@ -39,6 +49,62 @@ export default function AdminDashboard() {
       toast.error('Failed to send broadcast');
     } finally {
       setIsBroadcasting(false);
+    }
+  };
+
+  const handleAddRoute = async (e) => {
+    e.preventDefault();
+    if (!newRouteData.number || !newRouteData.name) {
+      toast.error('Number and Name are required');
+      return;
+    }
+    setIsAddingRoute(true);
+    try {
+      const { data } = await api.post('/routes', newRouteData);
+      if (data.success) {
+        setRoutes([...routes, data.data]);
+        toast.success('Route added successfully');
+        setIsAddModalOpen(false);
+        setNewRouteData({ number: '', name: '', description: '', color: '#3b82f6' });
+      }
+    } catch (e) {
+      console.error("Add route error:", e.response?.data || e.message);
+      toast.error(e.response?.data?.message || 'Failed to add route');
+    } finally {
+      setIsAddingRoute(false);
+    }
+  };
+
+  const openEditModal = (route) => {
+    setEditRouteData({
+      id: route.id,
+      number: route.number || '',
+      name: route.name || '',
+      description: route.description || '',
+      color: route.color || '#3b82f6'
+    });
+    setIsEditModalOpen(true);
+  };
+
+  const handleEditRoute = async (e) => {
+    e.preventDefault();
+    if (!editRouteData.number || !editRouteData.name) {
+      toast.error('Number and Name are required');
+      return;
+    }
+    setIsEditingRoute(true);
+    try {
+      const { data } = await api.put(`/routes/${editRouteData.id}`, editRouteData);
+      if (data.success) {
+        setRoutes(routes.map(r => r.id === editRouteData.id ? data.data : r));
+        toast.success('Route updated successfully');
+        setIsEditModalOpen(false);
+      }
+    } catch (e) {
+      console.error("Edit route error:", e.response?.data || e.message);
+      toast.error(e.response?.data?.message || 'Failed to update route');
+    } finally {
+      setIsEditingRoute(false);
     }
   };
 
@@ -92,7 +158,7 @@ export default function AdminDashboard() {
       <div className="glass-card" style={{ padding: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
           <h2 style={{ fontSize: '18px', fontWeight: 700 }}>Route Management</h2>
-          <button className="btn-primary" onClick={() => toast('Route creation modal coming soon!')}>+ Add Route</button>
+          <button className="btn-primary" onClick={() => setIsAddModalOpen(true)}>+ Add Route</button>
         </div>
 
         <div style={{ overflowX: 'auto' }}>
@@ -117,7 +183,7 @@ export default function AdminDashboard() {
                     </div>
                   </td>
                   <td style={{ padding: '12px 8px', textAlign: 'right' }}>
-                    <button className="btn-secondary" style={{ padding: '4px 8px', fontSize: '12px', marginRight: '8px' }}>Edit</button>
+                    <button className="btn-secondary" style={{ padding: '4px 8px', fontSize: '12px', marginRight: '8px' }} onClick={() => openEditModal(route)}>Edit</button>
                     <button className="btn-secondary" style={{ padding: '4px 8px', fontSize: '12px', color: 'var(--accent-rose)', borderColor: 'rgba(244,63,94,0.3)' }} onClick={() => handleDeleteRoute(route.id)}>Delete</button>
                   </td>
                 </tr>
@@ -131,6 +197,136 @@ export default function AdminDashboard() {
           </table>
         </div>
       </div>
+
+      {/* Add Route Modal */}
+      {isAddModalOpen && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
+        }}>
+          <div className="glass-card" style={{ padding: '24px', width: '100%', maxWidth: '400px', backgroundColor: '#1e293b' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '16px' }}>Add New Route</h2>
+            <form onSubmit={handleAddRoute} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Route Number</label>
+                <input
+                  type="text"
+                  className="input-field"
+                  style={{ width: '100%' }}
+                  placeholder="e.g. 101"
+                  value={newRouteData.number}
+                  onChange={(e) => setNewRouteData({...newRouteData, number: e.target.value})}
+                  required
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Route Name</label>
+                <input
+                  type="text"
+                  className="input-field"
+                  style={{ width: '100%' }}
+                  placeholder="e.g. Downtown Express"
+                  value={newRouteData.name}
+                  onChange={(e) => setNewRouteData({...newRouteData, name: e.target.value})}
+                  required
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Description</label>
+                <input
+                  type="text"
+                  className="input-field"
+                  style={{ width: '100%' }}
+                  placeholder="e.g. Main St to Central Park"
+                  value={newRouteData.description}
+                  onChange={(e) => setNewRouteData({...newRouteData, description: e.target.value})}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Color</label>
+                <input
+                  type="color"
+                  style={{ width: '100%', height: '40px', padding: '0', border: 'none', borderRadius: '8px', cursor: 'pointer', background: 'transparent' }}
+                  value={newRouteData.color}
+                  onChange={(e) => setNewRouteData({...newRouteData, color: e.target.value})}
+                />
+              </div>
+              <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
+                <button type="button" className="btn-secondary" style={{ flex: 1 }} onClick={() => setIsAddModalOpen(false)}>Cancel</button>
+                <button type="submit" className="btn-primary" style={{ flex: 1 }} disabled={isAddingRoute}>
+                  {isAddingRoute ? 'Adding...' : 'Add Route'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Route Modal */}
+      {isEditModalOpen && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
+        }}>
+          <div className="glass-card" style={{ padding: '24px', width: '100%', maxWidth: '400px', backgroundColor: '#1e293b' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '16px' }}>Edit Route</h2>
+            <form onSubmit={handleEditRoute} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Route Number</label>
+                <input
+                  type="text"
+                  className="input-field"
+                  style={{ width: '100%' }}
+                  placeholder="e.g. 101"
+                  value={editRouteData.number}
+                  onChange={(e) => setEditRouteData({...editRouteData, number: e.target.value})}
+                  required
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Route Name</label>
+                <input
+                  type="text"
+                  className="input-field"
+                  style={{ width: '100%' }}
+                  placeholder="e.g. Downtown Express"
+                  value={editRouteData.name}
+                  onChange={(e) => setEditRouteData({...editRouteData, name: e.target.value})}
+                  required
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Description</label>
+                <input
+                  type="text"
+                  className="input-field"
+                  style={{ width: '100%' }}
+                  placeholder="e.g. Main St to Central Park"
+                  value={editRouteData.description}
+                  onChange={(e) => setEditRouteData({...editRouteData, description: e.target.value})}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Color</label>
+                <input
+                  type="color"
+                  style={{ width: '100%', height: '40px', padding: '0', border: 'none', borderRadius: '8px', cursor: 'pointer', background: 'transparent' }}
+                  value={editRouteData.color}
+                  onChange={(e) => setEditRouteData({...editRouteData, color: e.target.value})}
+                />
+              </div>
+              <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
+                <button type="button" className="btn-secondary" style={{ flex: 1 }} onClick={() => setIsEditModalOpen(false)}>Cancel</button>
+                <button type="submit" className="btn-primary" style={{ flex: 1 }} disabled={isEditingRoute}>
+                  {isEditingRoute ? 'Saving...' : 'Save Changes'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
