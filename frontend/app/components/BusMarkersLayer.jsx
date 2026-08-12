@@ -2,7 +2,6 @@
 import { useEffect, useRef } from 'react';
 import { Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 
 const ROUTE_COLORS = ['var(--accent-blue)', 'var(--accent-emerald)', '#f59e0b', '#8b5cf6', '#06b6d4', 'var(--accent-rose)'];
 

@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import useThemeStore from '../store/useThemeStore';
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+
 
 // Leaflet must be loaded client-side only
 const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });

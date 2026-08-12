@@ -111,7 +111,7 @@ export default function MapView({ buses = [], stops = [], selectedBusId, onBusSe
   }
 
   return (
-    <div style={{ width: '100%', height: '100%', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
+    <div className="map-wrapper">
       <MapContainer
         ref={mapRef}
         center={DEFAULT_CENTER}

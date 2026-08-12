@@ -1,3 +1,4 @@
+import 'leaflet/dist/leaflet.css';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
 
@@ -22,6 +23,11 @@ export default function RootLayout({ children }) {
                   const state = JSON.parse(store).state;
                   if (state && state.theme) {
                     document.documentElement.setAttribute('data-theme', state.theme);
+                    if (state.theme === 'dark') {
+                      document.documentElement.classList.add('dark');
+                    } else {
+                      document.documentElement.classList.remove('dark');
+                    }
                   }
                 }
               } catch (e) {}

@@ -41,7 +41,7 @@ export default function TrackingPage({ params }) {
       {/* Main content */}
       <div style={{ flex: 1, display: 'flex', gap: '12px', padding: '12px', overflow: 'hidden' }}>
         {/* Map */}
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, minHeight: 0, position: 'relative' }}>
           <MapView
             buses={bus ? [bus] : []}
             selectedBusId={busId}

@@ -108,7 +108,7 @@ export default function DashboardPage() {
       </motion.div>
 
       {/* Map area */}
-      <div style={{ flex: 1, padding: '12px', overflow: 'hidden', position: 'relative', display: 'flex' }}>
+      <div style={{ flex: 1, padding: '12px', overflow: 'hidden', position: 'relative', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
         
         {/* Sidebar Toggle Rail / Handle */}
         <button
@@ -151,15 +151,18 @@ export default function DashboardPage() {
           {sidebarOpen ? '◀' : '▶'}
         </button>
 
-        <MapView
-          buses={busList}
-          stops={stops}
-          selectedBusId={selectedBusId}
-          onBusSelect={handleBusSelect}
-          selectedStopId={selectedStop?.id}
-          onStopSelect={handleStopSelect}
-          userLocation={userLocation}
-        />
+        {/* Map fills the rest of the column */}
+        <div style={{ flex: 1, minHeight: 0, position: 'relative' }}>
+          <MapView
+            buses={busList}
+            stops={stops}
+            selectedBusId={selectedBusId}
+            onBusSelect={handleBusSelect}
+            selectedStopId={selectedStop?.id}
+            onStopSelect={handleStopSelect}
+            userLocation={userLocation}
+          />
+        </div>
 
         {/* Stop arrivals panel — overlays top-right of map */}
         {selectedStop && (
